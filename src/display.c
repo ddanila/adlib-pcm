@@ -23,8 +23,8 @@ static void bios_gotoxy(uint8_t col, uint8_t row) {
 
 void display_init(void) {
     bios_set_mode(0x03);   /* 80x25 text, clears screen */
-    printf("adlib-pcm  --  Windows 3.x sounds through an AdLib (OPL2)\r\n");
-    printf("ESC: quit   SPACE: replay   1-6: load next clip\r\n");
+    printf("adlib-pcm  --  PCM audio playback on an AdLib (OPL2)\r\n");
+    printf("ESC: quit   SPACE: replay   1-9: pick a clip from C:\r\n");
 }
 
 void display_status(const char *filename, uint16_t total, uint16_t played) {

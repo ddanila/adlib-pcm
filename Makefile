@@ -37,12 +37,12 @@ HEADERS = $(wildcard src/*.h)
 EXE     = build/adlib.exe
 
 # Windows 3.x sound clips live in the all-windows-sounds git submodule.
-# Source WAVs -> raw PCM at the player's 8 kHz sample rate via the
-# transcoder script. The submodule path "(1992) Windows 3x" contains
-# spaces and parens that confuse Make's pattern matcher, so we stage
-# symlinks into build/wavs/ and key the pattern rule off there. Each
-# .RAW ships on the floppy with an 8.3 uppercase filename so DOS picks
-# them up by the compile-time names baked into player_pcm.c.
+# Source WAVs -> raw PCM at the player's sample rate via the transcoder
+# script. The submodule path "(1992) Windows 3x" contains spaces and
+# parens that confuse Make's pattern matcher, so we stage symlinks into
+# build/wavs/ and key the pattern rule off there. Each .RAW lands on
+# the staged C: drive with an 8.3 uppercase filename so DOS picks them
+# up by the compile-time names baked into player_pcm.c.
 WIN3X_DIR    = sources/all-windows-sounds/(1992) Windows 3x
 WAV_STAGE    = build/wavs
 WAV_NAMES    = DING CHORD TADA CHIMES RINGIN RINGOUT
@@ -98,9 +98,7 @@ raws: $(RAW_FILES)
 # DOSBox-Staging ships NukedOPL by default, which is cycle-accurate
 # enough for the PCM-via-TL-modulation trick to actually produce audio.
 # scripts/run-dosbox.sh stages build/ + .RAW files into a directory
-# mounted as C: and runs ADLIB.EXE. (QEMU's adlib device batches
-# register writes and effectively silences the trick, so we don't
-# offer it as a run target.)
+# mounted as C: and runs ADLIB.EXE.
 run: $(EXE) $(RAW_FILES)
 	bash scripts/run-dosbox.sh
 

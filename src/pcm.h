@@ -9,9 +9,9 @@
 #define PCM_BUF_MAX 48000
 
 /* Load `path` into the global PCM buffer. Returns sample count on
- * success, 0 on failure. Filename must be the host-side path inside
- * the DOS environment (so something like "DING.RAW" if running from
- * the floppy root). */
+ * success, 0 on failure. Filename is resolved against the DOS
+ * working directory (so "DING.RAW" if running from the staged C:
+ * root, which is how scripts/run-dosbox.sh sets things up). */
 uint16_t pcm_load(const char *path);
 
 extern uint8_t pcm_buf[PCM_BUF_MAX];

@@ -3,10 +3,10 @@
 #include <i86.h>
 
 /* OPL2 spec: 3.3 us after register select, 23 us after data write. On
- * modern hosts and inside QEMU these are met trivially. We still issue
- * a handful of port reads for paranoia on real hardware, except inside
- * the PCM ISR which writes directly to the ports without going through
- * opl_write() so the per-sample budget stays small. */
+ * any modern host and inside DOSBox these are met trivially. We still
+ * issue a handful of port reads for paranoia on real hardware, except
+ * inside the PCM ISR which writes directly to the ports without going
+ * through opl_write() so the per-sample budget stays small. */
 static void io_wait_short(void) {
     int i;
     for (i = 0; i < 6; i++) (void)inp(OPL_PORT_REG);

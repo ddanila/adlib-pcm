@@ -1,7 +1,8 @@
 #!/bin/bash
 # run-dosbox.sh — launch DOSBox-Staging (NukedOPL by default) with the
-# adlib-pcm build. Use this when QEMU's adlib device doesn't react to
-# rapid TL register writes the way real hardware does.
+# adlib-pcm build. NukedOPL processes every register write at the
+# chip's internal 49716 Hz rate, which is what the TL-modulation PCM
+# trick depends on.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"

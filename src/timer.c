@@ -12,10 +12,10 @@
 #define PIC_EOI           0x20
 
 /* Once per BIOS_DIVISOR_RATIO pcm ticks we chain to the original INT 8
- * so the time-of-day and floppy motor timeouts keep advancing. PIT_FREQ
- * / 65536 = ~18.2 Hz original rate; PCM_RATE / 18.2 ≈ ratio of our ticks
- * per original tick. Rounded so cumulative drift stays under a second
- * per minute, which is fine for a demo player. */
+ * so the time-of-day clock and other BIOS housekeeping keep advancing.
+ * PIT_FREQ / 65536 = ~18.2 Hz original rate; PCM_RATE / 18.2 ≈ ratio
+ * of our ticks per original tick. Rounded so cumulative drift stays
+ * under a second per minute, which is fine for a demo player. */
 #define BIOS_DIVISOR_RATIO ((PCM_RATE + 9) / 18)
 
 /* MS_TICK_RATIO: how many ISR ticks per millisecond. At 16 kHz that's 16. */
