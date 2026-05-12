@@ -1,0 +1,12 @@
+build/
+*.obj
+*.o
+*.exe
+*.com
+*.map
+*.lst
+*.err
+# Ignore generated floppy images under build/, not the vendored source.
+/build/*.img
+.DS_Store
+__pycache__/
