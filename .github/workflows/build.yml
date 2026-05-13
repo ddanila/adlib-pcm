@@ -1,0 +1,38 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Transcode WAVs to .RAW
+        run: make raws
+
+      - name: Build ADLIB.EXE
+        run: make all
+
+      - name: Stage release bundle
+        run: |
+          mkdir -p dist/adlib-pcm
+          cp build/adlib.exe dist/adlib-pcm/ADLIB.EXE
+          cp assets/*.RAW dist/adlib-pcm/
+          cp README.md LICENSE dist/adlib-pcm/
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: adlib-pcm
+          path: dist/adlib-pcm/
+          if-no-files-found: error
