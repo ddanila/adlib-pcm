@@ -29,7 +29,11 @@ jobs:
           mkdir -p dist/adlib-pcm
           cp build/adlib.exe dist/adlib-pcm/ADLIB.EXE
           cp assets/*.RAW dist/adlib-pcm/
-          cp README.md LICENSE dist/adlib-pcm/
+          # README has a few Unicode glyphs (em-dash, +/-, almost-equal).
+          # Transliterate to CP437 so DOS text editors render it sanely,
+          # then normalise line endings to CRLF.
+          iconv -f UTF-8 -t CP437//TRANSLIT README.md | sed 's/$/\r/' > dist/adlib-pcm/README.md
+          sed 's/$/\r/' LICENSE > dist/adlib-pcm/LICENSE
 
       - uses: actions/upload-artifact@v7
         with:
